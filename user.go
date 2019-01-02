@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 	"net/http"
 	"time"
 )
@@ -47,22 +47,22 @@ type User struct {
 	Message           string    `json:"message"`
 }
 
-func getUserFromGit(userName string) User {
-	user := User{}
+func getUserFromGit(userName string) (user *User, err error) {
+	user = &User{}
 	url := gitApiURL + userEndPoint + userName
 
 	resp, err := http.Get(url)
 	defer resp.Body.Close()
 	if err != nil {
-		log.Fatalf("Unable to fetch from GIT: %s", err.Error())
+		return nil, err
 	}
 
 	if err := json.NewDecoder(resp.Body).Decode(&user); err != nil {
-		log.Fatalf("Unable to decode response: %s", err.Error())
+		return nil, err
 	}
 	//Check for status code
 	if resp.StatusCode != 200 {
-		log.Fatalf("Failed to fetch from Github. Github returned with Status code: %v and Message: %s", resp.StatusCode, user.Message)
+		return nil, fmt.Errorf("Failed to fetch from Github. Github returned with Status code: %v and Message: %s", resp.StatusCode, user.Message)
 	}
-	return user
+	return user, nil
 }

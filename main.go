@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	flag "github.com/ogier/pflag"
+	"log"
 	"os"
 	"strings"
 )
@@ -40,16 +41,18 @@ func validateInputAndFetchGitUsers() {
 	fmt.Printf("Searching for user(s): %s \n", users)
 
 	for _, user := range users {
-		gitUser := getUserFromGit(user)
-
-		fmt.Printf("Login: %s \n", gitUser.Login)
-		fmt.Printf("User ID: %v \n", gitUser.ID)
-		fmt.Printf("Name: %s \n", gitUser.Name)
-		fmt.Printf("Url: %s \n", gitUser.URL)
-		fmt.Printf("Location: %s \n", gitUser.Location)
-		fmt.Printf("Email: %s \n", gitUser.Email)
-		fmt.Printf("Company: %s \n", gitUser.Company)
-		fmt.Printf("Bio: %s \n", gitUser.Bio)
-		fmt.Printf("\n")
+		if gitUser, err := getUserFromGit(user); err == nil {
+			fmt.Printf("Login: %s \n", gitUser.Login)
+			fmt.Printf("User ID: %v \n", gitUser.ID)
+			fmt.Printf("Name: %s \n", gitUser.Name)
+			fmt.Printf("Url: %s \n", gitUser.URL)
+			fmt.Printf("Location: %s \n", gitUser.Location)
+			fmt.Printf("Email: %s \n", gitUser.Email)
+			fmt.Printf("Company: %s \n", gitUser.Company)
+			fmt.Printf("Bio: %s \n", gitUser.Bio)
+			fmt.Printf("\n")
+		} else {
+			log.Fatal(err)
+		}
 	}
 }
