@@ -51,16 +51,18 @@ func getUserFromGit(userName string) User {
 	user := User{}
 	url := gitApiURL + userEndPoint + userName
 
-	if resp, err := http.Get(url); err == nil {
-		if err := json.NewDecoder(resp.Body).Decode(&user); err != nil {
-			log.Fatalf("Unable to decode response: %s", err.Error())
-		}
-		//Check for status code
-		if resp.StatusCode != 200 {
-			log.Fatalf("Failed to fetch from Github. Github returned with Status code: %v and Message: %s", resp.StatusCode, user.Message)
-		}
-	} else {
+	resp, err := http.Get(url)
+	defer resp.Body.Close()
+	if err != nil {
 		log.Fatalf("Unable to fetch from GIT: %s", err.Error())
+	}
+
+	if err := json.NewDecoder(resp.Body).Decode(&user); err != nil {
+		log.Fatalf("Unable to decode response: %s", err.Error())
+	}
+	//Check for status code
+	if resp.StatusCode != 200 {
+		log.Fatalf("Failed to fetch from Github. Github returned with Status code: %v and Message: %s", resp.StatusCode, user.Message)
 	}
 	return user
 }
