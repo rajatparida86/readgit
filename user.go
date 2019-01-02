@@ -7,40 +7,6 @@ import (
 	"time"
 )
 
-/**
-"login": "rajatparida86",
-"id": 11991018,
-"node_id": "MDQ6VXNlcjExOTkxMDE4",
-"avatar_url": "https://avatars0.githubusercontent.com/u/11991018?v=4",
-"gravatar_id": "",
-"url": "https://api.github.com/users/rajatparida86",
-"html_url": "https://github.com/rajatparida86",
-"followers_url": "https://api.github.com/users/rajatparida86/followers",
-"following_url": "https://api.github.com/users/rajatparida86/following{/other_user}",
-"gists_url": "https://api.github.com/users/rajatparida86/gists{/gist_id}",
-"starred_url": "https://api.github.com/users/rajatparida86/starred{/owner}{/repo}",
-"subscriptions_url": "https://api.github.com/users/rajatparida86/subscriptions",
-"organizations_url": "https://api.github.com/users/rajatparida86/orgs",
-"repos_url": "https://api.github.com/users/rajatparida86/repos",
-"events_url": "https://api.github.com/users/rajatparida86/events{/privacy}",
-"received_events_url": "https://api.github.com/users/rajatparida86/received_events",
-"type": "User",
-"site_admin": false,
-"name": "Rajat Parida",
-"company": null,
-"blog": "",
-"location": null,
-"email": null,
-"hireable": null,
-"bio": null,
-"public_repos": 14,
-"public_gists": 1,
-"followers": 0,
-"following": 0,
-"created_at": "2015-04-17T08:20:39Z",
-"updated_at": "2019-01-01T21:51:22Z"
-**/
-
 const (
 	gitApiURL    = "https://api.github.com"
 	userEndPoint = "/users/"
