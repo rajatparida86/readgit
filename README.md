@@ -10,5 +10,5 @@ go install -v
 ## Usage
 ```
 readgit -u rajatparida86,defunkt
-readgit --user=rajatparida86.defunkt
+readgit --user=rajatparida86,defunkt
 ```
