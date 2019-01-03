@@ -14,18 +14,22 @@ var (
 
 func main() {
 	flag.Parse()
-	validateInputAndFetchGitUsers()
+	if !isValidFlags() {
+		printUsage()
+		os.Exit(1)
+	}
+	fetchGitUsers()
 }
 
 func init() {
 	flag.StringVarP(&userInput, "user", "u", "", "Search users")
 }
 
-func isValidFlags() {
+func isValidFlags() bool {
 	if flag.NFlag() == 0 {
-		printUsage()
-		os.Exit(1)
+		return false
 	}
+	return true
 }
 
 func printUsage() {
@@ -34,9 +38,7 @@ func printUsage() {
 	flag.PrintDefaults()
 }
 
-func validateInputAndFetchGitUsers() {
-	isValidFlags()
-
+func fetchGitUsers() {
 	users := strings.Split(userInput, ",")
 	fmt.Printf("Searching for user(s): %s \n", users)
 
